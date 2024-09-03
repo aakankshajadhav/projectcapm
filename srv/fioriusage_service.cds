@@ -7,7 +7,7 @@ service fiori {
   entity Last_90days              as projection on my.Fiori_usage_last90days;
   entity Last_180days             as projection on my.Fiori_usage_last180days;
   entity Last_360days             as projection on my.Fiori_usage_last360days;
-  entity Total_time_Visited       as projection on my.YC_Fiori_usage_time_visted;
+  //entity Total_time_Visited       as projection on my.YC_Fiori_usage_time_visted;
   
   //entity Top5_tile        as projection on my.YC_Fiori_usage_top_5_tiles;
   entity Top5_Tiles_90days        as projection on my.top_5_tiles_90;

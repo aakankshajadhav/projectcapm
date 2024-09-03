@@ -1,27 +1,35 @@
 using app.fioriusage as my from '../db/fioriusage';
 
 service fiori {
-@odata.draft.enabled
-  // entity fiori_usage as projection on fioriusage.Fiori_usage;
-  entity Fiori_Analytics as projection on my.Fiori_usage;
-  // entity Srv_Fiori_usage as projection on my.YC_Fiori_usage;
+  @odata.draft.enabled
+  entity Fiori_Analytics          as projection on my.Fiori_usage;
+  //cdsview entity
+  entity Last_90days              as projection on my.Fiori_usage_last90days;
+  entity Last_180days             as projection on my.Fiori_usage_last180days;
+  entity Last_360days             as projection on my.Fiori_usage_last360days;
+  entity Total_time_Visited       as projection on my.YC_Fiori_usage_time_visted;
+  
+  //entity Top5_tile        as projection on my.YC_Fiori_usage_top_5_tiles;
+  entity Top5_Tiles_90days        as projection on my.top_5_tiles_90;
+  entity Top5_Tiles_180days       as projection on my.top_5_tiles_180;
+  entity Top5_Tiles_360days       as projection on my.top_5_tiles_360;
+  entity least_Visited_fiori_apps as projection on my.least_Visited_fiori_app;  
 }
+
+// @odata.draft.enabled
 annotate my.Fiori_usage with @(UI: {
   CreateHidden       : false,
   UpdateHidden       : false,
   DeleteHidden       : false,
   HeaderInfo         : {
     $Type         : 'UI.HeaderInfoType',
-    TypeName      : 'Fiori OverView',
-    TypeNamePlural: 'Fiori OverView',
-    Description   : {Value: 'Fiori OverView'}
-
+    TypeName      : 'Fiori Statistics',
+    TypeNamePlural: 'Fiori Statistics',
+    Description   : {Value: 'Fiori Statistics'}
   },
   LineItem           : [
-   
-   
-    {Value:track_no},
-    {Value:client},
+    {Value: track_no},
+    {Value: client},
     {Value: fiori_id},
     {Value: tile},
     {Value: flp_user},
@@ -43,7 +51,7 @@ annotate my.Fiori_usage with @(UI: {
 
   Facets             : [{
     $Type : 'UI.CollectionFacet',
-    Label : 'OverView Page details',
+    Label : 'Fiori Statistics Page details',
     Facets: [{
       $Type : 'UI.ReferenceFacet',
       Target: '@UI.FieldGroup#Details',
@@ -70,25 +78,21 @@ annotate my.Fiori_usage with @(UI: {
     {Value: page_title},
     {Value: space_title},
     {Value: time_visited}
-  ]
-
-
-  },
+  ]},
 });
 
-// annotate fiori.Fiori_Analytics with @(UI:{
-//   Chart #donut : {
+
+// annotate fiori.Fiori_Analytics with
+//  @(UI:{
+//  Chart #donut       :{
 //   $Type           : 'UI.ChartDefinitionType',
 //   ChartType          : #Donut,
 //   Description        : 'Donut Chart',
-//   Measures           : [catalog_name],
-//   MeasureAttributes  : [{
-//     $Type: 'UI.ChartMeasureAttributeType',
-//     Measure:catalog_name,
-//     Role : #Axis1,
-//      DataPoint : '@UI.DataPoint#catalog_name'
-    
-//   }],
+//   Dimensions           :  ['tile'],
+//   Measures           : ['flp_user'],
+//   DimensionAttributes:[{dimension:'tile',role:#Category}],
+//   MeasureAttributes  : [{measure:'flp_user', roles : #Axis_1 }]
+//      }]
 //   Dimensions         : [catalog_id],
 //   DimensionAttributes: [{
 //     $Type    : 'UI.ChartDimensionAttributeType',
@@ -135,24 +139,4 @@ annotate my.Fiori_usage with @(UI: {
 // });
 
 
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// annotate fiori.Fiori_Analytics with UI.Chart;

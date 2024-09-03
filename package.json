@@ -9,11 +9,13 @@
     "@sap/cds": "^6.8.2",
     "@sap/cds-hana": "^2",
     "express": "^4"
+    
   },
   "scripts": {
     "start": "cds-serve"
   },
   "cds": {
+    
     "build": {
       "tasks": [
         {

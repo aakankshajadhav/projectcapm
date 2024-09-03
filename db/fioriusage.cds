@@ -250,3 +250,26 @@ view least_Visited_fiori_app_360days as
         AppHitCount asc
     limit 5;
 
+
+    view fiori_top5_tiles as
+     select from Fiori_usage {
+        tile,
+        client,
+        semanticobject,
+        action,
+        fdate,
+        COUNT( * ) as AppHitCount : Integer
+    }
+    where
+        fdate >= ADD_DAYS(
+            CURRENT_DATE, -360
+        )
+    group by
+        tile,
+        client,
+        semanticobject,
+        action,
+        fdate
+    order by
+        AppHitCount asc
+    limit 5;

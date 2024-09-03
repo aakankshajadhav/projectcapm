@@ -16,7 +16,7 @@ service fiori {
   entity least_Visited_fiori_apps as projection on my.least_Visited_fiori_app;  
 }
 
-// @odata.draft.enabled
+ @odata.draft.enabled
 annotate my.Fiori_usage with @(UI: {
   CreateHidden       : false,
   UpdateHidden       : false,
